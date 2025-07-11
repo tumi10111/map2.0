@@ -7,9 +7,11 @@ const PORT = process.env.PORT || 3001;
 
 // CORS configuration
 const corsOptions = {
-  origin: ['http://localhost:3000', 'https://spontaneous-lamington-310c0c.netlify.app'],
+ 
+  origin: 'https://aesthetic-llama-0a84d7.netlify.app',
   credentials: true
 };
+
 
 app.use(cors(corsOptions));
 app.use(express.json());
@@ -165,4 +167,8 @@ app.post('/api/available', async (req, res) => {
     console.error('❌ Error inserting available plot:', err);
     res.status(500).json({ error: 'Failed to insert available plot' });
   }
+});
+
+app.get('/', (req, res) => {
+  res.send('Backend is running ✅');
 });
