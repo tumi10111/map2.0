@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 3001;
 // CORS configuration
 const corsOptions = {
  
-  origin: 'https://relaxed-cranachan-1cdb56.netlify.app/',
+  origin: 'https://cheerful-tiramisu-4e0b78.netlify.app/',
   credentials: true
 };
 
