@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 3001;
 // CORS configuration
 const corsOptions = {
  
-  origin: 'https://aesthetic-llama-0a84d7.netlify.app',
+  origin: 'https://relaxed-cranachan-1cdb56.netlify.app/',
   credentials: true
 };
 
@@ -36,7 +36,7 @@ let pool;
     pool = await sql.connect(config);
     console.log('✅ MSSQL connected');
     app.listen(PORT, () => {
-      console.log(`✅ Server running at https://spontaneous-lamington-310c0c.netlify.app:${PORT}`);
+      console.log(`✅ Server running at https://map2-0.onrender.com:${PORT}`);
     });
   } catch (err) {
     console.error('❌ Failed to connect to DB:', err);
@@ -64,7 +64,7 @@ app.get('/api/plot', async (req, res) => {
 });
 
 // POST: Add new occupied plot
-app.post('/api/plot', async (req, res) => {
+app.post('https://map2-0.onrender.com/api/plot', async (req, res) => {
   const {
     DecID, DecNama, DecSurname, DoB, DoD,
     sex, Permit, Lot, Block, Grave, Status, lat, lng
@@ -108,7 +108,7 @@ app.post('/api/plot', async (req, res) => {
 });
 
 // DELETE: Remove plot by Permit
-app.delete('/api/plot/:permit', async (req, res) => {
+app.delete('https://map2-0.onrender.com/api/plot/:permit', async (req, res) => {
   const { permit } = req.params;
   try {
     await pool.request()
@@ -129,7 +129,7 @@ app.delete('/api/plot/:permit', async (req, res) => {
 // ==========================
 
 // GET: Available Plots
-app.get('/api/available', async (req, res) => {
+app.get('https://map2-0.onrender.com/api/available', async (req, res) => {
   try {
     const result = await pool.request().query(`
       SELECT p.Permit, p.Lot, p.Block, p.Grave, p.Status, p.lat, p.lng
@@ -145,7 +145,7 @@ app.get('/api/available', async (req, res) => {
 });
 
 // POST: Add available plot
-app.post('/api/available', async (req, res) => {
+app.post('https://map2-0.onrender.com/api/available', async (req, res) => {
   const { Permit, Lot, Block, Grave, Status, lat, lng } = req.body;
 
   try {
