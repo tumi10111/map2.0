@@ -8,7 +8,8 @@ const PORT = process.env.PORT || 3001;
 // CORS configuration
 const corsOptions = {
  
-  origin: 'https://cheerful-tiramisu-4e0b78.netlify.app/',
+  origin: 'https://cheerful-tiramisu-4e0b78.netlify.app',
+
   credentials: true
 };
 
@@ -64,7 +65,7 @@ app.get('/api/plot', async (req, res) => {
 });
 
 // POST: Add new occupied plot
-app.post('https://map2-0.onrender.com/api/plot', async (req, res) => {
+app.post('/api/plot', async (req, res) => {
   const {
     DecID, DecNama, DecSurname, DoB, DoD,
     sex, Permit, Lot, Block, Grave, Status, lat, lng
@@ -108,7 +109,7 @@ app.post('https://map2-0.onrender.com/api/plot', async (req, res) => {
 });
 
 // DELETE: Remove plot by Permit
-app.delete('https://map2-0.onrender.com/api/plot/:permit', async (req, res) => {
+app.delete('/api/plot/:permit', async (req, res) => {
   const { permit } = req.params;
   try {
     await pool.request()
@@ -129,7 +130,7 @@ app.delete('https://map2-0.onrender.com/api/plot/:permit', async (req, res) => {
 // ==========================
 
 // GET: Available Plots
-app.get('https://map2-0.onrender.com/api/available', async (req, res) => {
+app.get('/api/available', async (req, res) => {
   try {
     const result = await pool.request().query(`
       SELECT p.Permit, p.Lot, p.Block, p.Grave, p.Status, p.lat, p.lng
@@ -145,7 +146,7 @@ app.get('https://map2-0.onrender.com/api/available', async (req, res) => {
 });
 
 // POST: Add available plot
-app.post('https://map2-0.onrender.com/api/available', async (req, res) => {
+app.post('/api/available', async (req, res) => {
   const { Permit, Lot, Block, Grave, Status, lat, lng } = req.body;
 
   try {
@@ -171,4 +172,12 @@ app.post('https://map2-0.onrender.com/api/available', async (req, res) => {
 
 app.get('/', (req, res) => {
   res.send('Backend is running ✅');
+});
+
+const path = require('path');
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
