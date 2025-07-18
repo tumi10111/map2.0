@@ -8,9 +8,20 @@ const PORT = process.env.PORT || 3001;
 
 // CORS configuration
 const corsOptions = {
-  origin: 'https://spontaneous-lamington-310c0c.netlify.app/',
+  origin: function (origin, callback) {
+    const allowedOrigins = [
+      'https://cheerful-tiramisu-4e0b78.netlify.app',
+      'https://spontaneous-lamington-310c0c.netlify.app'
+    ];
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true
 };
+
 
 app.use(cors(corsOptions));
 app.use(express.json());
