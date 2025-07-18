@@ -1,18 +1,16 @@
 const express = require('express');
 const sql = require('mssql');
 const cors = require('cors');
+const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
 // CORS configuration
 const corsOptions = {
- 
   origin: 'https://cheerful-tiramisu-4e0b78.netlify.app',
-
   credentials: true
 };
-
 
 app.use(cors(corsOptions));
 app.use(express.json());
@@ -32,6 +30,7 @@ const config = {
 
 let pool;
 
+// Connect to DB and start server
 (async function startServer() {
   try {
     pool = await sql.connect(config);
@@ -170,14 +169,13 @@ app.post('/api/available', async (req, res) => {
   }
 });
 
+// Health Check Route
 app.get('/', (req, res) => {
   res.send('Backend is running ✅');
 });
 
-const path = require('path');
-
+// Serve frontend (if deployed statically)
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
