@@ -186,4 +186,18 @@ app.get('/', (req, res) => {
   res.send('Backend is running ✅');
 });
 
+app.post('/api/admin/login', (req, res) => {
+  const { email, password } = req.body;
+  const adminUser = {
+    email: 'Admin.tumi@tcs-solutions.co.za',
+    password: 'Hlahane123'
+  };
+
+  if (email === adminUser.email && password === adminUser.password) {
+    res.status(200).json({ message: 'Login successful' });
+  } else {
+    res.status(401).json({ message: 'Invalid email or password' });
+  }
+});
+
  

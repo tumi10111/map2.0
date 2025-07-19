@@ -5,8 +5,9 @@ import {
 import axios from 'axios';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { useNavigate } from 'react-router-dom';
 
-const API_BASE_URL = 'https://map2-0.onrender.com'; // ✅ Local server or dev tunnel
+const API_BASE_URL = 'https://map2-0.onrender.com';
 
 // Icons
 const graveIcon = new L.Icon({
@@ -19,7 +20,7 @@ const availableGraveIcon = new L.Icon({
   iconSize: [26, 26],
 });
 
-// DMS to Decimal Conversion
+// Convert DMS to Decimal
 const dmsToDecimal = (dmsStr) => {
   if (!dmsStr) return null;
   if (typeof dmsStr === 'number') return dmsStr;
@@ -34,7 +35,7 @@ const dmsToDecimal = (dmsStr) => {
 
 const parseCoordinate = (coord) => dmsToDecimal(coord);
 
-// Center Map Component
+// Re-center map on search
 const MapCenter = ({ lat, lng, zoom }) => {
   const map = useMap();
   useEffect(() => {
@@ -43,11 +44,13 @@ const MapCenter = ({ lat, lng, zoom }) => {
   return null;
 };
 
-// Mouse Coordinates Tracker
+// Show live coordinates
 const MouseCoordinates = () => {
   const [position, setPosition] = useState(null);
   useMapEvents({ mousemove: (e) => setPosition(e.latlng) });
+
   if (!position) return null;
+
   return (
     <div style={{
       position: 'absolute', bottom: 10, left: 10,
@@ -59,7 +62,7 @@ const MouseCoordinates = () => {
   );
 };
 
-// Main ViewMap Component
+// Main component
 const ViewMap = () => {
   const [graves, setGraves] = useState([]);
   const [zoomLevel] = useState(15);
@@ -67,6 +70,7 @@ const ViewMap = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchCoords, setSearchCoords] = useState(null);
   const mapRef = useRef();
+  const navigate = useNavigate();
 
   useEffect(() => {
     loadGraves();
@@ -103,6 +107,18 @@ const ViewMap = () => {
 
   return (
     <div>
+      {/* Admin Button */}
+      <div style={{
+        position: 'absolute',
+        top: 10, right: 10,
+        zIndex: 1000
+      }}>
+        <button onClick={() => navigate('/admin')}>
+          Admin
+        </button>
+      </div>
+
+      {/* Controls */}
       <div style={{ padding: 10, display: 'flex', gap: 8 }}>
         <input
           type="text"
@@ -113,7 +129,6 @@ const ViewMap = () => {
           style={{ flex: 1 }}
         />
         <button onClick={handleSearch}>Search</button>
-
         <select value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)}>
           <option value="all">All</option>
           <option value="occupied">Occupied</option>
@@ -121,6 +136,7 @@ const ViewMap = () => {
         </select>
       </div>
 
+      {/* Map */}
       <MapContainer
         center={[-26.19394, 28.02739]}
         zoom={zoomLevel}

@@ -1,16 +1,16 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import GraveMap from './GraveMap';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ViewMap from './viewmap';
+import AdminLogin from './AdminLogin';
+import GraveMap from './GraveMap'; // Admin dashboard
 
 function App() {
   return (
     <Router>
-      
       <Routes>
-        <Route path="/" element={<GraveMap />} />
-        <Route path="/viewmap" element={<ViewMap />} />
-        {/* Add more routes here if needed */}
+        <Route path="/" element={<ViewMap />} />
+        <Route path="/admin" element={<AdminLogin />} />
+        <Route path="/dashboard" element={<GraveMap />} />
       </Routes>
     </Router>
   );
