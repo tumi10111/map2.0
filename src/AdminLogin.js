@@ -25,7 +25,7 @@ const AdminLogin = () => {
       const data = await res.json();
 
       if (res.ok) {
-        navigate('/dashboard'); // Redirect to GraveMap
+        navigate('/dashboard');
       } else {
         setError(data.error || 'Invalid credentials');
       }
@@ -35,28 +35,77 @@ const AdminLogin = () => {
   };
 
   return (
-    <div style={{ padding: 20 }}>
-      <h2>Admin Login</h2>
-      <form onSubmit={handleLogin}>
-        <div>
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          /><br />
-        </div>
-        <div>
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          /><br />
-        </div>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        <button type="submit">Login</button>
-      </form>
+    <div
+      style={{
+        backgroundColor: 'white',
+        height: '100vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <div
+        style={{
+          backgroundColor: '#5bc0de', // light blue
+          padding: '40px',
+          borderRadius: '10px',
+          width: '100%',
+          maxWidth: '400px',
+          textAlign: 'center',
+        }}
+      >
+        <h2 style={{ color: 'white', marginBottom: '20px' }}>Admin Login</h2>
+        <form onSubmit={handleLogin}>
+          <div style={{ marginBottom: '15px' }}>
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              style={{
+                width: '100%',
+                padding: '12px',
+                fontSize: '16px',
+                border: 'none',
+                borderRadius: '5px',
+                backgroundColor: 'white',
+              }}
+            />
+          </div>
+          <div style={{ marginBottom: '15px' }}>
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              style={{
+                width: '100%',
+                padding: '12px',
+                fontSize: '16px',
+                border: 'none',
+                borderRadius: '5px',
+                backgroundColor: 'white',
+              }}
+            />
+          </div>
+          {error && <p style={{ color: 'white', marginBottom: '10px' }}>{error}</p>}
+          <button
+            type="submit"
+            style={{
+              width: '100%',
+              padding: '12px',
+              backgroundColor: '#0275d8',
+              color: 'white',
+              fontSize: '16px',
+              border: 'none',
+              borderRadius: '5px',
+              cursor: 'pointer',
+            }}
+          >
+            Login
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
