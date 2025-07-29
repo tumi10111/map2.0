@@ -137,13 +137,7 @@ const ViewMap = () => {
           <option value="occupied">Occupied</option>
           <option value="available">Available</option>
         </select>
-<button
-  onClick={() => navigate('/admin')}
-  style={{ display: showAdmin ? 'block' : 'none' }}
->
-  Admin
-</button>
-
+        <button onClick={() => navigate('/admin')}>Admin</button>
       </div>
 
       {/* Map */}
