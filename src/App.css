@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+.blur-overlay {
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(4px);
+  background: rgba(255, 255, 255, 0.5);
+  pointer-events: none;
+  z-index: 999;
+}
