@@ -108,37 +108,42 @@ const ViewMap = () => {
   return (
     <div>
       {/* Controls + Admin Button */}
-      <div
-        style={{
-          position: 'absolute',
-          top: 10,
-          right: 10,
-          zIndex: 1000,
-          display: 'flex',
-          gap: 8,
-          alignItems: 'center',
-          background: 'rgba(255, 255, 255, 0.9)',
-          padding: '6px 10px',
-          borderRadius: 4,
-          boxShadow: '0 0 5px rgba(0,0,0,0.2)'
-        }}
-      >
-        <input
-          type="text"
-          placeholder="Search cemetery"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-          style={{ flex: 1, minWidth: '180px' }}
-        />
-        <button onClick={handleSearch}>Search</button>
-        <select value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)}>
-          <option value="all">All</option>
-          <option value="occupied">Occupied</option>
-          <option value="available">Available</option>
-        </select>
-        <button onClick={() => navigate('/admin')}>Admin</button>
-      </div>
+     <div
+  style={{
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    zIndex: 1000,
+    display: 'flex',
+    gap: 8,
+    alignItems: 'center',
+    background: 'rgba(255, 255, 255, 0.9)',
+    padding: '6px 10px',
+    borderRadius: 4,
+    boxShadow: '0 0 5px rgba(0,0,0,0.2)'
+  }}
+>
+  <input
+    type="text"
+    placeholder="Search cemetery"
+    value={searchTerm}
+    onChange={(e) => setSearchTerm(e.target.value)}
+    onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+    style={{ flex: 1, minWidth: '180px' }}
+  />
+  <button onClick={handleSearch}>Search</button>
+  <select value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)}>
+    <option value="all">All</option>
+    <option value="occupied">Occupied</option>
+    <option value="available">Available</option>
+  </select>
+  <button 
+    onClick={() => navigate('/admin')} 
+    style={{ display: 'none' }} // or conditionally render it
+  >
+    Admin
+  </button>
+</div>
 
       {/* Map */}
       <MapContainer
